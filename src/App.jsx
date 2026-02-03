@@ -6,6 +6,7 @@ import {login, logout} from './store/authSlice'
 import {Header, Footer} from "@/components/"
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         </main>
         <Footer />
       </div>
+      <SpeedInsights />
     </div>
   ) : (null)
 
