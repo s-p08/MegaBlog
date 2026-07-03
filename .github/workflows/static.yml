@@ -31,13 +31,37 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Create env file
+        run: |
+          echo "VITE_APPWRITE_URL=https://nyc.cloud.appwrite.io/v1" > .env
+          echo "VITE_APPWRITE_PROJECT_ID=6980cea1001fdd1921ee" >> .env
+          echo "VITE_APPWRITE_DATABASE_ID=6980cfb0002a591df570" >> .env
+          echo "VITE_APPWRITE_COLLECTION_ID=articles" >> .env
+          echo "VITE_APPWRITE_BUCKET_ID=6980d5b00010a743beb5" >> .env
+          echo "VITE_RTE_KEY=g4dnf7tung3v5d7fqczgo8onyvki6gjg2pgeh7bje7wr4ijf" >> .env
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          # Upload build output folder
+          path: './dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
